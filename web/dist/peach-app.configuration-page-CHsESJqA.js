@@ -1,11 +1,7 @@
 (function() {
 	try {
 		var e = typeof globalThis < "u" ? globalThis : typeof window < "u" ? window : typeof global < "u" ? global : typeof self < "u" ? self : {}, t = new e.Error().stack;
-<<<<<<<< HEAD:web/dist/peach-app.configuration-page-D1PyF3fI.js
-		t && (e._sentryDebugIds = e._sentryDebugIds || {}, e._sentryDebugIds[t] = "ad2c7afd-21c9-4cd0-931a-0e2c90aa252c", e._sentryDebugIdIdentifier = "sentry-dbid-ad2c7afd-21c9-4cd0-931a-0e2c90aa252c");
-========
-		t && (e._sentryDebugIds = e._sentryDebugIds || {}, e._sentryDebugIds[t] = "2831153d-85bd-45e9-9cba-7a9bf6bb5e24", e._sentryDebugIdIdentifier = "sentry-dbid-2831153d-85bd-45e9-9cba-7a9bf6bb5e24");
->>>>>>>> 59fcab52 (feat(downloads): 支持本地 qBittorrent 下载):web/dist/peach-app.configuration-page-DNz-uud-.js
+		t && (e._sentryDebugIds = e._sentryDebugIds || {}, e._sentryDebugIds[t] = "dad68b4c-cc69-4b6e-bd7e-45890ea8c188", e._sentryDebugIdIdentifier = "sentry-dbid-dad68b4c-cc69-4b6e-bd7e-45890ea8c188");
 	} catch {}
 })();
 import { AnimatedItems as e, Cell as t, ChartBackground as n, ChartContainer as r, ChartLegend as i, ChartLegendContent as a, ChartTip as o, ChartTooltip as s, ChartTooltipContent as c, Curve as l, DATA_ITEM_GRAPHICAL_ITEM_ID_ATTRIBUTE_NAME as u, DATA_ITEM_INDEX_ATTRIBUTE_NAME as d, DefaultZIndexes as f, EvilBarChart as p, LabelList as m, LabelListFromLabelProp as h, Layer as g, LoadingIndicator as _, PolarChart as v, PolarLabelContextProvider as y, PolarLabelListContextProvider as b, RegisterGraphicalItemId as x, Sector as S, SetPolarGraphicalItem as C, SetPolarLegendPayload as w, SetTooltipEntrySettings as T, Shape as ee, TIP_SWATCH as te, Text as ne, ZIndexLayer as re, adaptEventsOfChild as ie, arrayTooltipSearcher as ae, createSelector as oe, defaultPolarChartProps as se, findAllByType as ce, get as le, getClassNameFromUnknown as ue, getColorsCount as de, getMaxRadius as fe, getPercentValue as pe, getTooltipNameProp as me, getValueByDataKey as he, interpolate as ge, isNumber as _e, matchAppend as ve, mathSign as ye, polarToCartesian as be, resolveDefaultProps as xe, selectActiveTooltipDataKey as Se, selectActiveTooltipGraphicalItemId as Ce, selectActiveTooltipIndex as we, selectChartDataAndAlwaysIgnoreIndexes as Te, selectChartOffsetInternal as Ee, selectUnfilteredPolarItems as De, svgPropertiesNoEvents as Oe, svgPropertiesNoEventsFromUnknown as ke, tone as Ae, useAnimationCallbacks as je, useAppSelector as Me, useMouseClickItemDispatch as Ne, useMouseEnterItemDispatch as Pe, useMouseLeaveItemDispatch as Fe, usePolarChartLayout as Ie } from "./peach-app.chart-tip-CRxYp6KT.js";
@@ -2275,12 +2271,7 @@ function sa({ data: e, receipt: t, reopenTutorial: n, panel: r }) {
 		]
 	});
 }
-<<<<<<<< HEAD:web/dist/peach-app.configuration-page-D1PyF3fI.js
-function oa({ reopenTutorial: e }) {
-========
-function ca({ receipt: e, reopenTutorial: t }) {
-	let n = Y();
->>>>>>>> 59fcab52 (feat(downloads): 支持本地 qBittorrent 下载):web/dist/peach-app.configuration-page-DNz-uud-.js
+function ca({ reopenTutorial: e }) {
 	return /* @__PURE__ */ (0, Q.jsx)("section", {
 		"aria-label": "新手教程",
 		className: "w-full",
@@ -5382,7 +5373,6 @@ function Jo({ data: e, receipt: t, panel: n, issues: r }) {
 		...Zn(n),
 		children: [
 			r,
-<<<<<<<< HEAD:web/dist/peach-app.configuration-page-D1PyF3fI.js
 			/* @__PURE__ */ (0, Q.jsx)("div", {
 				"data-guide-target": "sources",
 				children: /* @__PURE__ */ (0, Q.jsx)(Je, {
@@ -5391,15 +5381,7 @@ function Jo({ data: e, receipt: t, panel: n, issues: r }) {
 					children: "采集来源与登录状态"
 				})
 			}),
-			i.data ? /* @__PURE__ */ (0, Q.jsx)(zo, {
-========
-			/* @__PURE__ */ (0, Q.jsx)("div", { children: /* @__PURE__ */ (0, Q.jsx)(Je, {
-				href: "/sources",
-				variant: "secondary",
-				children: "采集来源与登录状态"
-			}) }),
 			i.data ? /* @__PURE__ */ (0, Q.jsx)(Vo, {
->>>>>>>> 59fcab52 (feat(downloads): 支持本地 qBittorrent 下载):web/dist/peach-app.configuration-page-DNz-uud-.js
 				data: i.data,
 				readOnly: !!e.ledger_read_only,
 				toast: t,
@@ -5677,8 +5659,4 @@ function ts({ data: e, receipt: t, reopenTutorial: n, section: r, diagnostics: i
 }
 export { Qo as ConfigurationPage };
 
-<<<<<<<< HEAD:web/dist/peach-app.configuration-page-D1PyF3fI.js
-//# debugId=ad2c7afd-21c9-4cd0-931a-0e2c90aa252c
-========
-//# debugId=2831153d-85bd-45e9-9cba-7a9bf6bb5e24
->>>>>>>> 59fcab52 (feat(downloads): 支持本地 qBittorrent 下载):web/dist/peach-app.configuration-page-DNz-uud-.js
+//# debugId=dad68b4c-cc69-4b6e-bd7e-45890ea8c188
