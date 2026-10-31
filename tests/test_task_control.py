@@ -327,8 +327,9 @@ class TaskControlTests(unittest.TestCase):
         path = self.root / 'heartbeat-finite'
         result = []
 
+        # 子进程实际运行约 1 秒，留足托管 runner 的启动余量；暂停 3.2 秒超过超时，证明暂停不计入。
         def work(job, identity):
-            result.append(task_control.run(self.child_command(path, 80), capture_output=True, timeout=3,
+            result.append(task_control.run(self.child_command(path, 50), capture_output=True, timeout=3,
                                           creationflags=getattr(subprocess, 'CREATE_NO_WINDOW', 0)))
             job.update(identity, status='complete')
 
@@ -341,7 +342,8 @@ class TaskControlTests(unittest.TestCase):
             task_control.request(self.store, original['run_id'], 'resume')
             job.thread.join(5)
             self.assertFalse(job.thread.is_alive())
-            self.assertEqual(self.store.get(original['run_id']).status, 'succeeded')
+            run = self.store.get(original['run_id'])
+            self.assertEqual(run.status, 'succeeded', run)
             self.assertEqual(result[0].returncode, 0)
             self.assertIn(b'child-output', result[0].stdout)
             self.assertIn(b'child-error', result[0].stderr)
