@@ -30,11 +30,17 @@ def _root(db):
     return state_for(db).parent / 'task-controls'
 
 
-def _read(path):
-    try:
-        return json.loads(path.read_text(encoding='utf-8'))
-    except FileNotFoundError:
-        return {}
+def _read(path, attempts=20):
+    for attempt in range(attempts):
+        try:
+            return json.loads(path.read_text(encoding='utf-8'))
+        except FileNotFoundError:
+            return {}
+        except PermissionError:
+            # Windows 上写入端 os.replace 换文件的那一瞬间，读方打开会报拒绝访问；稍等即可读到新文件。
+            if os.name != 'nt' or attempt == attempts - 1:
+                raise
+            time.sleep(.05)
 
 
 def _key(db, run_id):
