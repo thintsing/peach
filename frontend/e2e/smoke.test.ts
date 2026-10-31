@@ -136,7 +136,7 @@ const ROUTES: readonly Route[] = [
   {
     // 旧直达地址进入资源同步二级页。
     path: '/resource-sync',
-    body: (page) => [heading(page, '#main', '资源同步'), page.locator('#stats section#resource-sync')],
+    body: (page) => [pageTitle(page, '资源同步'), page.locator('#stats section#resource-sync')],
   },
   {
     path: '/quality-goals',
