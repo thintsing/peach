@@ -11,7 +11,7 @@ import { actionOrder, buttonNamed, choose, click, fetchMock, mount, section, sen
 
 const automatic = { mode: 'off', interval_hours: 24, available: true, download_available: true };
 const release: ReleaseState = {
-  current_version: '0.9.0', latest_version: null, channel: '测试版', installation: '独立测试包',
+  current_version: '0.9.0', latest_version: null, channel: '测试版', installation: '独立测试包', in_app_update: true,
   state: 'unchecked', message: '尚未检查', release_url: 'https://github.com/peach-mitao/peach/releases',
 };
 const uninstall = { available: true, full_available: true, message: '', data_root: 'fixture', directories: ['fixture', 'fixture/cache'] };
@@ -133,6 +133,18 @@ describe('检查更新', () => {
     expect(updates.querySelector('[role="alert"]')?.textContent).toBe('连接失败');
     expect(updates.textContent).not.toContain('0.10.0');
     expect(check.disabled).toBe(false);
+  });
+
+  it('macOS 独立包没有应用内安装，给本机架构的安装镜像下载键', async () => {
+    const dmg = 'https://github.com/peach-mitao/peach/releases/download/v1.0.0/Peach-1.0.0-macos-arm64.dmg';
+    const host = await mount(<ReleaseUpdates initial={{ ...release, in_app_update: false, state: 'available',
+      latest_version: '1.0.0', message: '有新版本可下载。', package_kind: 'installer', asset_url: dmg, asset_size: 300 * 1048576 }} />);
+    const updates = section(host, '检查更新')!;
+    expect(updates.textContent).toContain('macOS 安装镜像 · 300.0 MB');
+    expect(updates.textContent).toContain('把 Peach 拖入「应用程序」');
+    expect(buttonNamed('下载并安装', updates)).toBeNull();
+    const link = [...updates.querySelectorAll('a')].find((a) => a.textContent === '下载新版本');
+    expect(link?.getAttribute('href')).toBe(dmg);
   });
 
   it('已是最新就不再提示可用更新，也不给安装键', async () => {
