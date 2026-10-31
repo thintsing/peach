@@ -70,6 +70,7 @@ export function openPlaylist(playlistId,itemId=null,push=true){return openQueue(
 
 export function hasReturnSurface(){
   return !!$('#grid').querySelector('[data-id],[data-mix-seed]')
+    ||!!document.querySelector('[data-video-wall]')
     ||!$('#index').hidden||!$('#stats').hidden;
 }
 
@@ -131,8 +132,8 @@ export async function closeItemDetail(){
   if(restoreSurface&&navigationState.managedPagePath(new URL(returnPath,location.href).pathname)){navigationState.navigatePath(returnPath);return}
   navigationState.route(returnPath);
   if(restoreSurface)writeShell({pageOpens:pageOpens+1});
-  // 播放列表页回来就从头重开、取最新的那一份（详情里可能刚加进或移出了一条）。
-  else{buildBars();if(location.pathname==='/playlists')writeShell({pageOpens:pageOpens+1})}
+  // 播放列表保留页面，只刷新续播位置和详情里修改的列表内容。
+  else{buildBars();if(location.pathname==='/playlists')rereadPlaylists()}
 }
 
 /** 库外作品在同一个详情舞台打开，来处与关闭行为跟随覆盖条目。 */

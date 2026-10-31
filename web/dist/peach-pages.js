@@ -2,7 +2,7 @@
 (function() {
 	try {
 		var e = typeof globalThis < "u" ? globalThis : typeof window < "u" ? window : typeof global < "u" ? global : typeof self < "u" ? self : {}, t = new e.Error().stack;
-		t && (e._sentryDebugIds = e._sentryDebugIds || {}, e._sentryDebugIds[t] = "a82d8f1b-bccc-470d-949c-9ec1ae78a43a", e._sentryDebugIdIdentifier = "sentry-dbid-a82d8f1b-bccc-470d-949c-9ec1ae78a43a");
+		t && (e._sentryDebugIds = e._sentryDebugIds || {}, e._sentryDebugIds[t] = "010066a7-52db-4709-88bb-eb96d4af01ce", e._sentryDebugIdIdentifier = "sentry-dbid-010066a7-52db-4709-88bb-eb96d4af01ce");
 	} catch {}
 })();
 var e = Object.create, t = Object.defineProperty, n = Object.getOwnPropertyDescriptor, r = Object.getOwnPropertyNames, i = Object.getPrototypeOf, a = Object.prototype.hasOwnProperty, o = (e, t) => () => (t || (e((t = { exports: {} }).exports, t, t.exports), e = null), t.exports), s = (e, i, o, s) => {
@@ -20035,7 +20035,7 @@ var Gm = [
 			[
 				"facts",
 				"运行信息与新手教程",
-				"运行信息用于核对环境。新手教程可以随时重开，阅读进度保存在当前浏览器。"
+				"运行信息用于核对环境。新手教程可以随时重开，阅读进度随本机账本在所有设备间共享。"
 			],
 			[
 				"uninstall",
@@ -23344,4 +23344,4 @@ E();
 var Sv = document.getElementById("peach-page"), Cv = Sv ? xv[Sv.dataset.page ?? ""] : void 0;
 Sv && Cv && (0, j.createRoot)(Sv).render(/* @__PURE__ */ (0, R.jsx)(Cv, { data: { ...Sv.dataset } }));
 
-//# debugId=a82d8f1b-bccc-470d-949c-9ec1ae78a43a
+//# debugId=010066a7-52db-4709-88bb-eb96d4af01ce

@@ -121,8 +121,9 @@ export function TutorialCenter({ actions }: { actions: ShellActions }) {
     });
   };
   useEffect(() => {
+    if (!ready && !syncError) return;
     const entry = document.getElementById('tutorialBtn');
-    if (entry) entry.hidden = !syncError && (!ready || progress.completed);
+    if (entry) entry.hidden = !syncError && progress.completed;
   }, [progress.completed, ready, syncError]);
   const dismissInvite = () => {
     invitationSession.current?.stop(); invitationSession.current = null;
@@ -174,17 +175,19 @@ export function TutorialCenter({ actions }: { actions: ShellActions }) {
     const releaseDraft = peachHistory.listen(() => { dirty.current = false });
     document.addEventListener('input', onChange); document.addEventListener('change', onChange);
     const unlisten = listenGuide(request => { void (async () => {
+      const opener = document.activeElement as HTMLElement;
       await writes.current;
       if (!mounted.current) return;
       const loaded = await refresh();
       if (!loaded || request.invitation) return;
-      stop(); returnFocus.current = document.activeElement as HTMLElement;
+      stop(); returnFocus.current = opener;
       setNotice(''); setQuery('');
       const requested = GUIDE_CHAPTERS.find(item => item.id === request.chapter);
       if (request.reopen) {
         setInvitation(false);
         save({ ...progressRef.current, invited: true, completed: false }, { action: 'reopen' });
       } else dismissInvite();
+      restoreFocus();
       if (requested) { setTab(requested.kind); startRequest.current(requested, false) }
       else setOpen(true);
     })() });

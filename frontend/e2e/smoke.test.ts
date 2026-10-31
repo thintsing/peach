@@ -290,7 +290,7 @@ describe('路由冒烟', () => {
     }
   });
 
-  /* 首页那一行新作只属于目录页：从首页进统计页要收起清空，取数还没回来就离开的那一轮
+  /* 首页那一行新作只属于目录页：从首页进统计页要收起保留，取数还没回来就离开的那一轮
      也不许回头把它画到管理区上。演示库没有订阅，新作由拦截的接口给一条。 */
   it('离开首页之后新作那一行收起，晚到的取数也不画回来', { timeout: 60_000 }, async () => {
     const opened = await visit(browser, '/stats', DESKTOP);
@@ -319,16 +319,23 @@ describe('路由冒烟', () => {
       await go('/stats');
       await expectBody(opened.page, '/stats', [statsInventoryTab(opened.page)]);
       assert.equal(await opened.page.locator('#feedNew').isHidden(), true, '进统计页之后新作那一行还露着');
-      assert.equal(await feedCards.count(), 0, '进统计页之后新作那一行没有清空');
+      assert.equal(await feedCards.filter({ visible: true }).count(), 0, '进统计页之后新作卡片仍可见');
 
+      const beforeReturn = served;
       await go('/');
       await expectBody(opened.page, '/', [feedCards.first()]);
+      assert.equal(served, beforeReturn, '返回首页沿用新作缓存');
       await go('/junk-files');
       await opened.page.locator('#count [data-junk-filters]').waitFor();
       assert.equal(await opened.page.locator('#feedNew').isHidden(), true, '垃圾文件页不展示订阅新作');
-      assert.equal(await feedCards.count(), 0);
+      assert.equal(await feedCards.filter({ visible: true }).count(), 0);
 
       for (const target of ['/stats', '/junk-files']) {
+        hold = null;
+        const reloadPath = new URL(opened.page.url()).pathname;
+        await opened.page.reload({ waitUntil: 'load' });
+        await expectBody(opened.page, reloadPath, [reloadPath === '/stats'
+          ? statsInventoryTab(opened.page) : opened.page.locator('#count [data-junk-filters]')]);
         let release!: () => void;
         hold = new Promise((resolve) => { release = resolve; });
         const asked = opened.page.waitForRequest(/\/api\/feeds\/discoveries\?/);
@@ -343,7 +350,8 @@ describe('路由冒烟', () => {
         assert.ok(served > before, '压住的那一次新作取数没有放行');
         // 回包之后页面只剩一次同步重画；目录区的旧加载态不属于当前页面。
         await opened.page.waitForTimeout(500);
-        assert.equal(await feedCards.count(), 0, `晚到的新作取数画到了 ${target} 上`);
+        assert.equal(await opened.page.locator('#feedNew').isHidden(), true);
+        assert.equal(await feedCards.filter({ visible: true }).count(), 0, `晚到的新作取数画到了 ${target} 上`);
         await assertHolds(opened.page, opened.problems, `首页与 ${target} 往返`);
       }
     } finally {

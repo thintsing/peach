@@ -154,7 +154,7 @@ export const SETTING_CHAPTERS: GuideChapter[] = [
     ['transcode', '视频播放', '播放转码方式决定兼容播放使用的处理方式；抽帧解码在媒体库与入库中单独设置。修改后自动保存。'],
     ['storage', '存储空间', '查看占用，按需要清理缓存和旧备份。迁移数据目录会移动资料与缓存；媒体文件目录单独管理。'],
     ['reporting', '数据上传', '版本统计与错误诊断、馆藏与口味明细是独立选择。明细上传前可查看预览，按自己的意愿开启。'],
-    ['facts', '运行信息与新手教程', '运行信息用于核对环境。新手教程可以随时重开，阅读进度保存在当前浏览器。'],
+    ['facts', '运行信息与新手教程', '运行信息用于核对环境。新手教程可以随时重开，阅读进度随本机账本在所有设备间共享。'],
     ['uninstall', '卸载 Peach', '卸载移除程序；完全卸载还移除设置、资料库、记录、凭据和缓存。执行前核对页面列出的数据目录与确认内容。'],
   ], saved) },
   { id: 'diagnostics', kind: 'settings', title: CONFIGURATION_SECTIONS.diagnostics, summary: '遇到问题时查看检查项与诊断报告。', steps: fields('diagnostics', [
@@ -292,6 +292,7 @@ export const GUIDE_TOPICS: GuideTopic[] = [
   { id: 'system', kind: 'settings', title: '连接与维护', summary: '网络访问、应用维护、系统诊断', chapters: ['network', 'app-maintenance', 'diagnostics'] },
 ];
 export const SECTION_GUIDES: Record<string, string> = {
+  '来源凭据': 'credentials', '关注采集': 'follow-options', '检查更新': 'updates', '运行信息': 'facts',
   '媒体库与目录': 'media', '挂载状态': 'mounts', 'CloudDrive 代理': 'cloud-proxy', '自动发现新文件': 'discovery',
   '番号识别规则': 'codes', '视频预览': 'preview', '资源搜索': 'indexers', '作品资料站点': 'entry-links',
   '云下载': 'download', 'PikPak 账号': 'pikpak', '浏览器添加 JAV': 'browser', '访问地址': 'port',

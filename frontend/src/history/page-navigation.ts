@@ -195,7 +195,7 @@ export async function pageNavigationReady(isCurrent: () => boolean, results?: El
   if (pending && navigation.location.hash) {
     let target: Element | null;
     try { target = document.getElementById(decodeURIComponent(navigation.location.hash.slice(1))) } catch { return }
-    if (!target?.getClientRects().length) return;
+    if (!target?.getClientRects().length || target.closest('[data-skeleton], [data-content-skeleton]')) return;
   }
   positioned = seq;
   if (requestedTop === seq) {

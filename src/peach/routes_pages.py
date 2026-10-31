@@ -311,6 +311,9 @@ def index(request: Request, args: dict[str, str] = Depends(require_page_auth)):
     editor = "edit" in request.query_params and _copy_editor_available()
     from .client_updates import runtime_identity
     html = settings.page_path.read_text(encoding="utf-8")
+    from .web_tutorial import q_tutorial_progress
+    if q_tutorial_progress(request.app.state.web_contract)['completed']:
+        html = html.replace('id="tutorialBtn"', 'id="tutorialBtn" hidden', 1)
     entries = {'peach-client-runtime': runtime_identity()}
     if shape is not None:
         entries['peach-entity-shape'] = shape
