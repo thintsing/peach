@@ -53,7 +53,9 @@ export PATH="$PWD/build/macos-media-toolchain/env/bin:$PATH"
 
 构建脚本读取随包 Mach-O 的系统版本下限，填入 `LSMinimumSystemVersion` 并重新签名。构建解释器也必须支持目标系统；Homebrew Python 可能要求构建机的系统版本。`watchdog` 等本机编译扩展若命中旧缓存，需带部署目标和对应的 `ARCHFLAGS`，通过 `uv sync --locked --extra build --extra macos --no-cache --reinstall-package watchdog --no-binary-package watchdog` 重编，再核对产物报告的 `minimum_macos`。
 
-打开匹配架构的 DMG，把 `Peach.app` 拖入 Applications，再打开应用完成首次设置。菜单栏提供打开页面、重启和退出入口；数据默认保存在 `~/Library/Application Support/Peach/peach-data`，可用 `PEACH_DATA_ROOT` 指定独立目录。
+打开匹配架构的 DMG，把 `Peach.app` 拖入 Applications，再打开应用完成首次设置。菜单栏提供打开页面、重启、查看日志、导出诊断报告、检查更新和退出入口；数据默认保存在 `~/Library/Application Support/Peach/peach-data`，可用 `PEACH_DATA_ROOT` 指定独立目录。
+
+更新按 macOS 应用的常规做法手动替换：配置页「检查更新」只认本机架构的 DMG，有新版本时给出该 DMG 的下载键，下载后同样拖入 Applications 覆盖旧版本，数据目录与设置保留。macOS 没有应用内安装与自动下载，自动更新只做定期检查。卸载时先在配置页关闭开机自启并退出 Peach，再把应用移到废纸篓；需要完全卸载时，再删除配置页「卸载 Peach」列出的数据目录。
 
 测试包没有公证，从浏览器或聊天软件下载后带有隔离属性，较新的 macOS 会提示「Peach 已损坏，无法打开」，「隐私与安全性」里也不出现「仍要打开」。拖入 Applications 后在终端执行下面的命令，再打开应用：
 
@@ -401,7 +403,7 @@ Windows 测试包在 Peach 配置「应用与维护 → 卸载 Peach」里卸载
 
 ### 本机诊断
 
-托盘「导出诊断报告」和系统诊断页「下载诊断报告」提供脱敏 ZIP。托盘导出完成后可打开目录、打开文件或关闭窗口；启动失败时，弹窗给出自动保存的报告位置。报告包含版本、系统信息、选定日志的末尾和可取得的系统检查；配置文件、凭据、Peach 数据库和媒体不进入报告。日志中的网址、本机路径、IP、邮箱和常见凭据字段会脱敏，发送前仍应检查报告内容。
+托盘「导出诊断报告」和系统诊断页「下载诊断报告」提供脱敏 ZIP。Windows 托盘导出完成后可打开目录、打开文件或关闭窗口，macOS 菜单栏导出后在访达中选中报告；启动失败时，弹窗给出自动保存的报告位置。报告包含版本、系统信息、选定日志的末尾和可取得的系统检查；配置文件、凭据、Peach 数据库和媒体不进入报告。日志中的网址、本机路径、IP、邮箱和常见凭据字段会脱敏，发送前仍应检查报告内容。
 
 独立包支持 `Peach.exe --diagnostic-report`，无需启动服务即可保存报告；指定目标文件时放在该参数后，已有文件不会覆盖。源码环境可用 `python -m peach.support_bundle` 取得同类报告。默认报告与错误日志保存在数据目录的 `logs`，目录不可写时使用系统临时目录下的 `Peach/logs`。
 
