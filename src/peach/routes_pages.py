@@ -19,6 +19,7 @@ import gzip
 import hashlib
 import json
 import os
+import sqlite3
 import sys
 import threading
 from collections import OrderedDict
@@ -312,8 +313,12 @@ def index(request: Request, args: dict[str, str] = Depends(require_page_auth)):
     from .client_updates import runtime_identity
     html = settings.page_path.read_text(encoding="utf-8")
     from .web_tutorial import q_tutorial_progress
-    if q_tutorial_progress(request.app.state.web_contract)['completed']:
-        html = html.replace('id="tutorialBtn"', 'id="tutorialBtn" hidden', 1)
+    try:
+        if q_tutorial_progress(request.app.state.web_contract)['completed']:
+            html = html.replace('id="tutorialBtn"', 'id="tutorialBtn" hidden', 1)
+    except sqlite3.Error:
+        # 账本不可读时仍可进入配置；教程客户端保留“未取得状态”的提示与重试入口。
+        pass
     entries = {'peach-client-runtime': runtime_identity()}
     if shape is not None:
         entries['peach-entity-shape'] = shape
