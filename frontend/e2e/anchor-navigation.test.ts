@@ -47,7 +47,8 @@ describe('页面滚动定位', () => {
             tracking.running = false;
             return tracking.frames;
           });
-          if (!reduced) assert.ok(frames.some(y => y > 2 && y < 490), '首次切换应经过中间位置，不能先被短骨架夹到顶部');
+          if (!reduced) assert.ok(frames.some(y => y > 2 && y < 490),
+            `首次切换应经过中间位置，不能先被短骨架夹到顶部；逐帧位置：${frames.join(',')}`);
           release();
           await page.locator('[data-follow-list] > [data-follow-item]').first().waitFor();
           await page.waitForFunction(height => document.documentElement.style.minHeight === height

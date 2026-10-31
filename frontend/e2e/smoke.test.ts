@@ -29,6 +29,9 @@ interface Route {
 
 const heading = (page: Page, scope: string, name: string): Locator =>
   page.locator(scope).getByRole('heading', { name, exact: true });
+/* 数据管理二级页的卡片标题与页头同名；只认页头那一层 h2，React 卡片何时挂载都只匹配一个。 */
+const pageTitle = (page: Page, name: string): Locator =>
+  page.locator('#main').getByRole('heading', { name, exact: true, level: 2 });
 
 const DESKTOP = VIEWPORTS.find((viewport) => !viewport.mobile)!;
 
@@ -114,12 +117,12 @@ const ROUTES: readonly Route[] = [
       page.locator('#stats section[aria-label="扫描与采集"]'),
       page.locator('#cleanup-pending'), page.locator('#cleanup-maintenance'), page.locator('#cleanup-deletion')],
   },
-  { path: '/data-cleanup/organize', body: page => [heading(page, '#main', '整理文件'), page.locator('#stats #organize')] },
-  { path: '/data-cleanup/media-repair', body: page => [heading(page, '#main', '媒体修复'), page.locator('#stats section[aria-label="媒体修复"]')] },
-  { path: '/data-cleanup/resource-sync', body: page => [heading(page, '#main', '资源同步'), page.locator('#stats #resource-sync')] },
-  { path: '/data-cleanup/orphan-records', body: page => [heading(page, '#main', '文件已丢失的记录'), page.locator('#stats #orphan-records')] },
-  { path: '/data-cleanup/links', body: page => [heading(page, '#main', '链接管理'), page.locator('#stats #link-manager')] },
-  { path: '/data-cleanup/batch-delete', body: page => [heading(page, '#main', '批量删除'), page.locator('#stats #batch-delete')] },
+  { path: '/data-cleanup/organize', body: page => [pageTitle(page, '整理文件'), page.locator('#stats #organize')] },
+  { path: '/data-cleanup/media-repair', body: page => [pageTitle(page, '媒体修复'), page.locator('#stats section[aria-label="媒体修复"]')] },
+  { path: '/data-cleanup/resource-sync', body: page => [pageTitle(page, '资源同步'), page.locator('#stats #resource-sync')] },
+  { path: '/data-cleanup/orphan-records', body: page => [pageTitle(page, '文件已丢失的记录'), page.locator('#stats #orphan-records')] },
+  { path: '/data-cleanup/links', body: page => [pageTitle(page, '链接管理'), page.locator('#stats #link-manager')] },
+  { path: '/data-cleanup/batch-delete', body: page => [pageTitle(page, '批量删除'), page.locator('#stats #batch-delete')] },
   {
     // 演示库里没有垃圾候选，等到的是垃圾队列那一页的空态标题；壳铺的骨架只有卡片占位。
     path: '/junk-files',
