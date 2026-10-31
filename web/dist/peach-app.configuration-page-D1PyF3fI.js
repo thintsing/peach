@@ -1,7 +1,7 @@
 (function() {
 	try {
 		var e = typeof globalThis < "u" ? globalThis : typeof window < "u" ? window : typeof global < "u" ? global : typeof self < "u" ? self : {}, t = new e.Error().stack;
-		t && (e._sentryDebugIds = e._sentryDebugIds || {}, e._sentryDebugIds[t] = "1bc954bc-d93f-4818-9db7-d8ec46f57a65", e._sentryDebugIdIdentifier = "sentry-dbid-1bc954bc-d93f-4818-9db7-d8ec46f57a65");
+		t && (e._sentryDebugIds = e._sentryDebugIds || {}, e._sentryDebugIds[t] = "ad2c7afd-21c9-4cd0-931a-0e2c90aa252c", e._sentryDebugIdIdentifier = "sentry-dbid-ad2c7afd-21c9-4cd0-931a-0e2c90aa252c");
 	} catch {}
 })();
 import { AnimatedItems as e, Cell as t, ChartBackground as n, ChartContainer as r, ChartLegend as i, ChartLegendContent as a, ChartTip as o, ChartTooltip as s, ChartTooltipContent as c, Curve as l, DATA_ITEM_GRAPHICAL_ITEM_ID_ATTRIBUTE_NAME as u, DATA_ITEM_INDEX_ATTRIBUTE_NAME as d, DefaultZIndexes as f, EvilBarChart as p, LabelList as m, LabelListFromLabelProp as h, Layer as g, LoadingIndicator as _, PolarChart as v, PolarLabelContextProvider as y, PolarLabelListContextProvider as b, RegisterGraphicalItemId as x, Sector as S, SetPolarGraphicalItem as C, SetPolarLegendPayload as w, SetTooltipEntrySettings as T, Shape as ee, TIP_SWATCH as te, Text as ne, ZIndexLayer as re, adaptEventsOfChild as ie, arrayTooltipSearcher as ae, createSelector as oe, defaultPolarChartProps as se, findAllByType as ce, get as le, getClassNameFromUnknown as ue, getColorsCount as de, getMaxRadius as fe, getPercentValue as pe, getTooltipNameProp as me, getValueByDataKey as he, interpolate as ge, isNumber as _e, matchAppend as ve, mathSign as ye, polarToCartesian as be, resolveDefaultProps as xe, selectActiveTooltipDataKey as Se, selectActiveTooltipGraphicalItemId as Ce, selectActiveTooltipIndex as we, selectChartDataAndAlwaysIgnoreIndexes as Te, selectChartOffsetInternal as Ee, selectUnfilteredPolarItems as De, svgPropertiesNoEvents as Oe, svgPropertiesNoEventsFromUnknown as ke, tone as Ae, useAnimationCallbacks as je, useAppSelector as Me, useMouseClickItemDispatch as Ne, useMouseEnterItemDispatch as Pe, useMouseLeaveItemDispatch as Fe, usePolarChartLayout as Ie } from "./peach-app.chart-tip-CRxYp6KT.js";
@@ -2342,10 +2342,10 @@ function ma({ initial: e, initialJob: t }) {
 				}),
 				n.package_kind ? /* @__PURE__ */ (0, Q.jsxs)(j, {
 					term: "下载内容",
-					children: [n.package_kind === "update" ? "应用更新包" : "应用与工具", n.asset_size ? ` · ${(n.asset_size / 1048576).toFixed(1)} MB` : ""]
+					children: [n.package_kind === "update" ? "应用更新包" : n.package_kind === "installer" ? "macOS 安装镜像" : "应用与工具", n.asset_size ? ` · ${(n.asset_size / 1048576).toFixed(1)} MB` : ""]
 				}) : null
 			] }),
-			n.package_kind === "update" ? /* @__PURE__ */ (0, Q.jsx)(N, { children: "应用更新包复用已安装工具；工具缺失、损坏或版本变化时会另行下载所需工具包。" }) : n.package_kind === "full" ? /* @__PURE__ */ (0, Q.jsx)(N, { children: "本次更新包含媒体工具。" }) : null,
+			n.package_kind === "update" ? /* @__PURE__ */ (0, Q.jsx)(N, { children: "应用更新包复用已安装工具；工具缺失、损坏或版本变化时会另行下载所需工具包。" }) : n.package_kind === "full" ? /* @__PURE__ */ (0, Q.jsx)(N, { children: "本次更新包含媒体工具。" }) : n.package_kind === "installer" ? /* @__PURE__ */ (0, Q.jsx)(N, { children: "下载后打开镜像，把 Peach 拖入「应用程序」替换旧版本，数据目录与设置保留；提示已损坏时按发布页说明移除隔离标记。" }) : null,
 			n.state === "unchecked" && !n.checked_at && !g && i.state === "idle" ? null : /* @__PURE__ */ (0, Q.jsxs)(V, {
 				divided: !0,
 				children: [
@@ -2400,11 +2400,15 @@ function ma({ initial: e, initialJob: t }) {
 						...K(c.busy === "check"),
 						children: "检查更新"
 					}),
-					n.state === "available" && n.installation === "独立测试包" && i.state !== "ready" ? /* @__PURE__ */ (0, Q.jsx)(E, {
+					n.state === "available" && n.in_app_update && i.state !== "ready" ? /* @__PURE__ */ (0, Q.jsx)(E, {
 						variant: "primary",
 						onClick: m,
 						...K(d || c.busy === "download"),
 						children: "下载并安装"
+					}) : n.state === "available" && n.installation === "独立测试包" && n.asset_url ? /* @__PURE__ */ (0, Q.jsx)(Je, {
+						variant: "primary",
+						href: n.asset_url,
+						children: "下载新版本"
 					}) : null,
 					i.state === "ready" ? /* @__PURE__ */ (0, Q.jsx)(E, {
 						variant: "primary",
@@ -5488,4 +5492,4 @@ function $o({ data: e, receipt: t, reopenTutorial: n, section: r, diagnostics: i
 }
 export { Xo as ConfigurationPage };
 
-//# debugId=1bc954bc-d93f-4818-9db7-d8ec46f57a65
+//# debugId=ad2c7afd-21c9-4cd0-931a-0e2c90aa252c
