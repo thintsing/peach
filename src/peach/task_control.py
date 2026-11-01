@@ -5,6 +5,7 @@ import json
 import os
 import signal
 import subprocess
+import sys
 import threading
 import time
 import uuid
@@ -397,6 +398,10 @@ def run(command, *, capture_output=False, timeout=None, check=False, input=None,
                     os.killpg(process.pid, signal.SIGKILL)
                 except ProcessLookupError:
                     pass
+                except PermissionError:
+                    # 进程组由 start_new_session 自建；macOS 上组内只剩未回收的僵尸时 killpg 报 EPERM。
+                    if sys.platform != 'darwin':
+                        raise
             close_job(job)
             try:
                 stdout, stderr = process.communicate()
